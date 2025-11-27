@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "SpeakFasterObserver": {
-      "commandName": "Project",
-      "remoteDebugEnabled": false,
-      "remoteDebugMachine": "steveg-a13"
-    }
-  }
-}
