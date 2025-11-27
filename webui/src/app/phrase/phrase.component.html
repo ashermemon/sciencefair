@@ -1,0 +1,134 @@
+<style>
+
+:host {
+  box-sizing: border-box;
+  font-family: "Google Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.action-button {
+  background-color: transparent;
+  border: none;
+  color: #111;
+  display: inline;
+  float: right;
+  height: 64px;
+  font-size: 20px;
+  margin-left: 4px;
+  width: 76px;
+  padding: 5px;
+}
+
+.button-image {
+  height: 36px;
+  width: 36px;
+}
+
+.display-text {
+  color: rgb(228, 228, 85);
+}
+
+.phrase {
+  align-self: center;
+  display: inline-flex;
+  flex: 5;
+  height: 100%;
+  white-space: pre-wrap;
+  vertical-align: middle;
+}
+
+.phrase-container {
+  background: #333;
+  border: 1px solid #999;
+  border-radius: 8px;
+  color: #eee;
+  display: flex;
+  font-size: 22px;
+  height: 63px;
+  line-height: 32px;
+  margin: 3px 3px;
+  min-width: 300px;
+  padding-left: 10px;
+  white-space: nowrap;
+}
+
+.phrase-text {
+  align-self: center;
+}
+
+.speak-button {
+  width: 76px;
+}
+
+.speak-button-emphasized {
+  background-color: #20AE69;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.speak-button-hidden {
+  visibility: hidden;
+}
+
+</style>
+
+<div class="phrase-container"
+  style="background-color: {{color}}">
+
+  <div
+      #phrase
+      class="phrase"
+      (click)="onTextClicked($event)">
+    <span
+        class="phrase-text"
+        [ngClass]="{'display-text': isDisplayTextAvailable}"
+    >{{getDisplayedText()}}</span>
+  </div>
+
+  <button
+      #clickableButton
+      *ngIf="!isEditing"
+      class="action-button speak-button"
+      [ngClass]="{'speak-button-emphasized': emphasizeSpeakButton, 'speak-button-hidden': hideSpeakButton}"
+      (click)="onSpeakButtonClicked($event)">
+    <img class="button-image" src="/assets/images/speak.png" alt="speak phrase" />
+  </button>
+
+  <button
+      #clickableButton
+      *ngIf="!isEditing && showInjectButton"
+      class="action-button inject-button"
+      (click)="onInjectButtonClicked($event)">
+    <img class="button-image" src="/assets/images/inject.png" alt="inject phrase" />
+  </button>
+
+  <button
+      #clickableButton
+      *ngIf="isEditing"
+      class="action-button edit-button"
+      (click)="onEditButtonClicked($event)">
+    <img class="button-image" src="/assets/images/edit.png" alt="inject phrase" />
+  </button>
+
+  <button
+      #clickableButton
+      *ngIf="isEditing || showFavoriteButton"
+      class="action-button favorite-button">
+    <app-favorite-button-component
+        [isDeletion]="phraseId !== undefined && phraseId.length > 0"
+        [userId]="userId"
+        [phraseId]="phraseId"
+        [phrase]="phraseText"
+        [phraseDisplayText]="phraseDisplayText"
+        [tags]="tags">
+    </app-favorite-button-component>
+  </button>
+
+  <button
+      #clickableButton
+      *ngIf="showExpandButton"
+      class="action-button expand-button"
+      (click)="onExpandButtonClicked($event)">
+      <img class="button-image" src="/assets/images/partner-phrases.png" alt="expand" />
+  </button>
+
+</div>

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeakFasterObserver", "SpeakFasterObserver\SpeakFasterObserver.csproj", "{ECEDB902-2FAB-44A7-A824-B1725237E8DE}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "SpeakFasterObserver Decoder", "SpeakFasterObserver Decoder\SpeakFasterObserver Decoder.pyproj", "{3752D2B0-C808-4F34-A82A-0E91F6F3E5EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Debug|x64.ActiveCfg = Debug|x64
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Debug|x64.Build.0 = Debug|x64
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Debug|x86.ActiveCfg = Debug|x86
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Debug|x86.Build.0 = Debug|x86
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Release|x64.ActiveCfg = Release|x64
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Release|x64.Build.0 = Release|x64
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Release|x86.ActiveCfg = Release|x86
+		{ECEDB902-2FAB-44A7-A824-B1725237E8DE}.Release|x86.Build.0 = Release|x86
+		{3752D2B0-C808-4F34-A82A-0E91F6F3E5EB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3752D2B0-C808-4F34-A82A-0E91F6F3E5EB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3752D2B0-C808-4F34-A82A-0E91F6F3E5EB}.Release|x64.ActiveCfg = Release|Any CPU
+		{3752D2B0-C808-4F34-A82A-0E91F6F3E5EB}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71671CE1-D57E-45E5-8EDD-07DE11DCD728}
+	EndGlobalSection
+EndGlobal

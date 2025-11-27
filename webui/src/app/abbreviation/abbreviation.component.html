@@ -1,0 +1,343 @@
+<style>
+
+:host {
+  box-sizing: border-box;
+  color: #EEE;
+  font-family: "Google Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 32px;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+app-quick-phrases-component {
+  bottom: 0;
+  display: block;
+  left: 0;
+  margin-bottom: 0;
+  max-height: 100px;
+  position: absolute;
+}
+
+mat-progress-spinner {
+  display: inline-block;
+  stroke: #ddd;
+  zoom: 0.3;
+}
+
+.abbreviation-option {
+  background: #333;
+  border-radius: 4px;
+  color: #eee;
+  display: flex;
+  font-size: 22px;
+  height: 63px;
+  line-height: 32px;
+  margin: 3px 5px;
+  min-width: 300px;
+  padding-left: 5px;
+  white-space: nowrap;
+}
+
+.abbreviation-options-container {
+  display: inline-block;
+}
+
+.abbreviation-options-grid {
+  align-items: start;
+  display: grid;
+  gap: 1px 5px;
+  grid-auto-columns: minmax(0, 1fr);
+  grid-auto-flow: column;
+  grid-template-areas:
+    "a a a a d d d d"
+    "a a a a d d d d"
+    "b b b b e e e e"
+    "b b b b e e e e"
+    "c c c c f f f f"
+    "c c c c f f f f";
+  padding-left: 3px;
+}
+
+.button-image {
+  margin-right: 5px;
+  max-width: 80%;
+  max-height: 80%;
+}
+
+.item {
+  padding: 1px;
+  width: 525px;
+}
+
+.item1 {
+  grid-area: a;
+}
+
+.item2 {
+  grid-area: b;
+}
+
+.item3 {
+  grid-area: c;
+}
+
+.item4 {
+  grid-area: d;
+}
+
+.item5 {
+  grid-area: e;
+}
+
+.item6 {
+  grid-area: f;
+}
+
+.action-button {
+  background: darkgreen;
+  border: 1px solid #888;
+  border-radius: 4px;
+  color: #eee;
+  display: inline-block;
+  font-size: 28px;
+  height: 72px;
+  line-height: 32px;
+  margin: 10px;
+  min-width: 72px;
+  padding: 15px;
+  vertical-align: top;
+  width: fit-content;
+}
+
+.action-abort-button {
+  background-color: brown;
+  display: inline-block;
+  height: 66px;
+  margin: 2px;
+  width: 66px;
+}
+
+.action-button.repeat-button {
+  align-items: center;
+  background-color: rgb(122, 102, 7);
+  border-radius: 8px;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  font-size: 22px;
+  height: 64px;
+  margin: 4px 0;
+  position: absolute;
+  right: 0;
+}
+
+.action-button.text-prediction-button {
+  border-width: 1px;
+  min-width: 80px;
+}
+
+.container {
+  height: 220px;
+}
+
+.edit-token {
+  background: #333;
+  border: 2px solid #888;
+  border-radius: 4px;
+  color: #eee;
+  display: inline-block;
+  font-size: 28px;
+  line-height: 32px;
+  margin: 10px;
+  min-width: 120px;
+  padding: 15px;
+  vertical-align: middle;;
+  width: fit-content;
+}
+
+.empty-options-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.expansions {
+  display: inline-flex;
+  flex-direction: row;
+  white-space: nowrap;
+}
+
+.info {
+  font-size: 22px;
+  margin-left: 10px;
+}
+
+.is-selected {
+  border: 3px solid cyan;
+}
+
+.is-token-selected {
+  background-color: lightblue;
+  color: #111;
+}
+
+.option-button {
+  background: darkgreen;
+  border: 2px solid #888;
+  border-radius: 4px;
+  color: #eee;
+  display: inline-block;
+  font-size: 28px;
+  height: 72px;
+  line-height: 32px;
+  margin: 10px;
+  min-width: 72px;
+  padding: 15px;
+  vertical-align: top;
+  width: fit-content;
+}
+
+.refinement-button {
+  height: 64px;
+  margin: 4px 6px 9px;
+}
+
+.refinement-buttons-container {
+  display: inline-flex;
+  margin: 0 0 0 3px;
+  flex-direction: column;
+}
+
+.request-ongoing {
+  color: yellow;
+}
+
+.request-ongoing-message {
+  margin-left: 15px;
+}
+
+.response-empty {
+  color: orange;
+}
+
+.response-error {
+  align-items: center;
+  color: orange;
+  display: flex;
+  flex-direction: row;
+  line-height: 50px;
+  margin: 0 12px;
+}
+
+.token-input {
+  border: 2px solid #888;
+  border-radius: 3px;
+  font-size: 32px;
+  margin: 6px 8px;
+  padding: 2px 4px;
+  width: 150px;
+}
+
+.try-again-button {
+  font-size: 18px;
+  height: fit-content;
+  padding: 10px;
+  vertical-align: top;
+  width: 120px;
+}
+
+</style>
+
+<div class="container" (click)="onContainerClicked($event)">
+
+<div *ngIf="state == 'REQUEST_ONGOING'" class="info request-ongoing">
+  <mat-progress-spinner
+      [mode]="'indeterminate'"
+      [value]="50">
+  </mat-progress-spinner>
+  <span class="request-ongoing-message">Getting abbreviation expansions...</span>
+</div>
+<div *ngIf="responseError !== null" class="info response-error">
+  Error: {{responseError}}
+  <button
+      #clickableButton
+      class="action-button try-again-button"
+      (click)="onTryAgainButtonClicked($event)">
+    Try again
+  </button>
+</div>
+<div
+    *ngIf="state === 'CHOOSING_EXPANSION' || state == 'SPELLING'"
+    class="expansions">
+
+  <div *ngIf="receivedEmptyOptions" class="empty-options-container">
+    <span class="info response-empty">Found no expansions</span>
+    <button
+        #clickableButton
+        class="action-button try-again-button"
+        (click)="onTryAgainButtonClicked($event)">
+      Try again
+    </button>
+  </div>
+  <div class="abbreviation-options-container">
+    <div class="abbreviation-options-grid">
+      <app-phrase-component
+          *ngFor="let abbreviationOption of abbreviationOptions; let i = index"
+          #abbreviationOption
+          class="item item{{i + 1}}"
+          [userId]="userId"
+          [phraseText]="abbreviationOption"
+          [phraseIndex]="i"
+          [scaleFontSize]="true"
+          [showInjectButton]="!isStudyOn"
+          [showFavoriteButton]="!isStudyOn"
+          [emphasizeSpeakButton]="isStudyOn"
+          [color]="getPhraseBackgroundColor(i)"
+          [isTextClickable]="true"
+          [hideSpeakButton]="getPhraseHideSpeakButton(i)"
+          (textClicked)="onTextClicked($event)"
+          (speakButtonClicked)="onSpeakOptionButtonClicked($event)"
+          (injectButtonClicked)="onExpansionOptionButtonClicked($event)">
+      </app-phrase-component>
+    </div>
+  </div>
+</div>
+
+<div
+    *ngIf="!isStudyOn &&
+           (state === 'PRE_CHOOSING_EXPANSION' ||
+            state === 'POST_CHOOSING_EXPANSION')">
+
+  <app-quick-phrases-component
+      [userId]="userId"
+      [allowedTag]="'temporal'"
+      [maxNumPhrases]="3"
+      [showDeleteButtons]="false"
+      [textEntryBeginSubject]="textEntryBeginSubject"
+      [textEntryEndSubject]="textEntryEndSubject"
+      [allowsEditing]="false"
+  ></app-quick-phrases-component>
+</div>
+
+<app-abbreviation-refinement-component
+    *ngIf="state === 'REFINING_EXPANSION'"
+    [refinementType]="refinementType"
+    [fillMaskRequest]="fillMaskRequest!"
+    (refinementResult)="onRefinementResult($event)">
+</app-abbreviation-refinement-component>
+
+<!-- TODO(cais): Add unit test. -->
+<button
+    #clickableButton
+    *ngIf="state === 'POST_CHOOSING_EXPANSION' && !isStudyDialogOngoing"
+    class="action-button repeat-button"
+    (click)="onRepeatButtonClicked($event)">
+  <img
+      class="button-image"
+      src="/assets/images/repeat.png"
+      alt="Show options again" />
+  Show options again
+</button>
+
+</div>
